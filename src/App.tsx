@@ -1,51 +1,24 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
-import "./App.css";
-
-function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
-
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
-
+export default function App() {
   return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
+    <main className="min-h-screen flex items-center justify-center bg-zinc-950 text-zinc-100">
+      <div className="w-full max-w-xl px-8">
+        <div className="space-y-2">
+          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500">
+            Litigraph
+          </p>
 
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+          <h1 className="text-4xl font-semibold tracking-tight">
+            Visual intelligence,
+            <br />
+            built for complexity.
+          </h1>
+
+          <p className="max-w-md text-zinc-400 leading-relaxed">
+            An offline-first workspace for building connected knowledge,
+            investigations, and relationship graphs.
+          </p>
+        </div>
       </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
     </main>
   );
 }
-
-export default App;
