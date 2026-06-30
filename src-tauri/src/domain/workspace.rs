@@ -23,8 +23,6 @@ impl Workspace {
 
     pub fn rename(&mut self, name: impl Into<String>) {
         let name = name.into();
-        assert!(!name.trim().is_empty(), "workspace name cannot be empty");
-
         self.name = name;
     }
 

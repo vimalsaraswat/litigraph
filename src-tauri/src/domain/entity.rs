@@ -36,9 +36,6 @@ impl Entity {
 
     pub fn rename(&mut self, title: impl Into<String>) {
         let title = title.into();
-
-        assert!(!title.trim().is_empty(), "entity title cannot be empty");
-
         self.title = title;
     }
 
