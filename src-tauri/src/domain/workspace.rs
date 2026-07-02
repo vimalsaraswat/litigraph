@@ -22,37 +22,25 @@ impl Workspace {
     }
 
     pub fn rename(&mut self, name: impl Into<String>) {
-        let name = name.into();
-        self.name = name;
+        self.name = name.into();
     }
 
     pub fn add_entity(&mut self, entity: Entity) {
         self.entities.push(entity);
     }
 
-    pub fn remove_entity(&mut self, id: &EntityId) -> bool {
-        let initial_len = self.entities.len();
-
+    pub fn remove_entity(&mut self, id: &EntityId) {
         self.entities.retain(|e| &e.id != id);
 
-        // Maintain aggregate consistency by removing connected relationships.
         self.relationships
             .retain(|r| &r.source != id && &r.target != id);
-
-        initial_len != self.entities.len()
     }
 
     pub fn add_relationship(&mut self, relationship: Relationship) {
-        if self.relationships.iter().all(|r| r.id != relationship.id) {
-            self.relationships.push(relationship);
-        }
+        self.relationships.push(relationship);
     }
 
-    pub fn remove_relationship(&mut self, id: &RelationshipId) -> bool {
-        let initial_len = self.relationships.len();
-
+    pub fn remove_relationship(&mut self, id: &RelationshipId) {
         self.relationships.retain(|r| &r.id != id);
-
-        initial_len != self.relationships.len()
     }
 }
