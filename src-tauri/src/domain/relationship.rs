@@ -4,14 +4,7 @@ use crate::domain::EntityId;
 pub struct RelationshipId(pub String);
 
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-pub enum RelationshipType {
-    Supports,
-    References,
-    Contradicts,
-    Represents,
-    RelatedTo,
-    Custom(String),
-}
+pub struct RelationshipType(pub String);
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct Relationship {
@@ -22,17 +15,17 @@ pub struct Relationship {
 }
 
 impl Relationship {
-    pub fn new(source: EntityId, target: EntityId, relationship_type: RelationshipType) -> Self {
+    pub fn new(source: EntityId, target: EntityId, relationship_type: impl Into<String>) -> Self {
         Self {
             id: RelationshipId(uuid::Uuid::new_v4().to_string()),
             source,
             target,
-            relationship_type,
+            relationship_type: RelationshipType(relationship_type.into()),
         }
     }
 
-    pub fn change_type(&mut self, relationship_type: RelationshipType) {
-        self.relationship_type = relationship_type;
+    pub fn change_type(&mut self, relationship_type: impl Into<String>) {
+        self.relationship_type = RelationshipType(relationship_type.into());
     }
 
     pub fn connects(&self, entity_id: &EntityId) -> bool {
