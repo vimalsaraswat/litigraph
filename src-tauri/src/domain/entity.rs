@@ -4,15 +4,7 @@ use crate::domain::{Position, Property};
 pub struct EntityId(pub String);
 
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-pub enum EntityType {
-    Person,
-    Evidence,
-    Event,
-    Argument,
-    Court,
-    Note,
-    Custom(String),
-}
+pub struct EntityType(pub String);
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct Entity {
@@ -24,19 +16,22 @@ pub struct Entity {
 }
 
 impl Entity {
-    pub fn new(title: impl Into<String>, entity_type: EntityType, position: Position) -> Self {
+    pub fn new(
+        title: impl Into<String>,
+        entity_type: impl Into<String>,
+        position: Position,
+    ) -> Self {
         Self {
             id: EntityId(uuid::Uuid::new_v4().to_string()),
             title: title.into(),
-            entity_type,
+            entity_type: EntityType(entity_type.into()),
             properties: Vec::new(),
             position,
         }
     }
 
     pub fn rename(&mut self, title: impl Into<String>) {
-        let title = title.into();
-        self.title = title;
+        self.title = title.into();
     }
 
     pub fn move_to(&mut self, position: Position) {
