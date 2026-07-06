@@ -1,3 +1,5 @@
+use crate::domain::Workspace;
+
 pub struct WorkspaceApplication;
 
 impl WorkspaceApplication {
