@@ -1,10 +1,4 @@
-use crate::domain::EntityId;
-
-#[derive(Debug, Clone, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
-pub struct RelationshipId(pub String);
-
-#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-pub struct RelationshipType(pub String);
+use super::{EntityId, RelationshipId, RelationshipType};
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct Relationship {

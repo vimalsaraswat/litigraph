@@ -1,10 +1,4 @@
-use crate::domain::{Position, Property};
-
-#[derive(Debug, Clone, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
-pub struct EntityId(pub String);
-
-#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-pub struct EntityType(pub String);
+use super::{EntityId, EntityType, Position, Property};
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct Entity {
