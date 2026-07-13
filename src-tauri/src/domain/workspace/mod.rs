@@ -1,7 +1,12 @@
-use crate::domain::{Entity, EntityId, Relationship, RelationshipId};
+mod entity;
+mod relationship;
+mod repository;
+mod value_objects;
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
-pub struct WorkspaceId(pub String);
+pub use entity::*;
+pub use relationship::*;
+pub use repository::*;
+pub use value_objects::*;
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct Workspace {
@@ -43,14 +48,4 @@ impl Workspace {
     pub fn remove_relationship(&mut self, id: &RelationshipId) {
         self.relationships.retain(|r| &r.id != id);
     }
-}
-
-pub trait WorkspaceRepository {
-    fn save(&self, workspace: &Workspace);
-
-    fn load(&self, id: &WorkspaceId) -> Option<Workspace>;
-
-    fn delete(&self, id: &WorkspaceId);
-
-    fn list(&self) -> Vec<Workspace>;
 }
