@@ -1,11 +1,11 @@
-use super::{Workspace, WorkspaceId};
+use std::{io, path::Path};
+
+use super::Workspace;
 
 pub trait WorkspaceRepository {
-    fn save(&self, workspace: &Workspace);
+    fn save(&self, workspace: &Workspace, path: &Path) -> io::Result<()>;
 
-    fn load(&self, id: &WorkspaceId) -> Option<Workspace>;
+    fn load(&self, path: &Path) -> io::Result<Workspace>;
 
-    fn delete(&self, id: &WorkspaceId);
-
-    fn list(&self) -> Vec<Workspace>;
+    fn delete(&self, path: &Path) -> io::Result<()>;
 }
