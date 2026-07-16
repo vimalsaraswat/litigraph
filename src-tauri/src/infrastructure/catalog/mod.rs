@@ -5,7 +5,7 @@ use std::path::PathBuf;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
-use crate::domain::WorkspaceId;
+use crate::domain::{Workspace, WorkspaceId};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WorkspaceEntry {
@@ -13,6 +13,17 @@ pub struct WorkspaceEntry {
     pub name: String,
     pub path: PathBuf,
     pub last_opened: DateTime<Utc>,
+}
+
+impl WorkspaceEntry {
+    pub fn new(workspace: &Workspace, path: PathBuf) -> Self {
+        Self {
+            id: workspace.id.clone(),
+            name: workspace.name.clone(),
+            path,
+            last_opened: Utc::now(),
+        }
+    }
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
