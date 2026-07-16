@@ -1,5 +1,6 @@
 pub mod application;
 pub mod domain;
+pub mod infrastructure;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
