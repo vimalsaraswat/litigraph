@@ -37,10 +37,12 @@ impl WorkspaceRepository for WorkspaceFileRepository {
     }
 
     fn delete(&self, path: &Path) -> io::Result<()> {
-        if path.exists() {
-            fs::remove_dir_all(path)?;
-        }
+        let workspace_file = Self::workspace_file(path);
 
-        Ok(())
+        match fs::remove_file(workspace_file) {
+            Ok(()) => Ok(()),
+            Err(err) if err.kind() == io::ErrorKind::NotFound => Ok(()),
+            Err(err) => Err(err),
+        }
     }
 }
