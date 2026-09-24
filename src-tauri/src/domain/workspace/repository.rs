@@ -8,4 +8,8 @@ pub trait WorkspaceRepository {
     fn load(&self, path: &Path) -> io::Result<Workspace>;
 
     fn delete(&self, path: &Path) -> io::Result<()>;
+
+    fn exists(&self, path: &Path) -> bool {
+        self.load(path).is_ok()
+    }
 }
